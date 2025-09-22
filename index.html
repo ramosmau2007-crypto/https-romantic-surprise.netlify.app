@@ -34,17 +34,10 @@
     }
 
     @keyframes fall {
-      0% {
-        transform: translateY(0) rotate(0deg);
-        opacity: 1;
-      }
-      100% {
-        transform: translateY(110vh) rotate(360deg);
-        opacity: 0;
-      }
+      0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+      100% { transform: translateY(110vh) rotate(360deg); opacity: 0; }
     }
 
-    /* Center Content */
     .container {
       position: relative;
       z-index: 10;
@@ -56,7 +49,6 @@
       text-align: center;
     }
 
-    /* Title */
     h1 {
       font-family: 'Great Vibes', cursive;
       font-size: 48px;
@@ -81,25 +73,21 @@
       cursor: pointer;
       perspective: 1000px;
       box-shadow: 0 10px 40px rgba(0,0,0,0.2);
-      transition: transform 0.3s ease;
-    }
-
-    .envelope:hover {
-      transform: scale(1.05);
+      overflow: hidden;
     }
 
     .envelope .flap {
       position: absolute;
       top: 0;
       left: 0;
-      width: 320px;
+      width: 100%;
       height: 110px;
       background: #f48fb1;
       border-top-left-radius: 15px;
       border-top-right-radius: 15px;
-      transform-origin: top;
+      transform-origin: top center;
       transition: transform 1s ease;
-      z-index: 2;
+      z-index: 3;
     }
 
     .envelope.opened .flap {
@@ -108,7 +96,7 @@
 
     .envelope .letter {
       position: absolute;
-      top: 25px;
+      bottom: 10px;
       left: 20px;
       width: 280px;
       height: 170px;
@@ -116,14 +104,14 @@
       border-radius: 8px;
       text-align: center;
       padding: 25px;
-      z-index: 1;
       box-sizing: border-box;
       transition: transform 1s ease;
       box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+      z-index: 1;
     }
 
     .envelope.opened .letter {
-      transform: translateY(-200px);
+      transform: translateY(-180px);
     }
 
     .envelope .letter p {
@@ -143,7 +131,6 @@
   </style>
 </head>
 <body>
-  <!-- Falling hearts will be added by JS -->
   <div class="container">
     <h1>💌 Happy Anniversary, Beng! 💖</h1>
     <div class="envelope" onclick="this.classList.toggle('opened')">
@@ -172,11 +159,8 @@
 
       document.body.appendChild(heart);
 
-      setTimeout(() => {
-        heart.remove();
-      }, 7000);
+      setTimeout(() => { heart.remove(); }, 7000);
     }
-
     setInterval(createHeart, 400);
   </script>
 </body>
