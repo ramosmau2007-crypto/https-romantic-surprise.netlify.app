@@ -4,60 +4,30 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Happy Anniversary, Beng!</title>
-  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
   <style>
     body {
       margin: 0;
       height: 100vh;
       display: flex;
-      flex-direction: column;
       align-items: center;
       justify-content: center;
-      background: radial-gradient(circle at top, #ffe6f0, #ffccd5);
-      overflow: hidden;
-      font-family: 'Montserrat', sans-serif;
+      background: #ffd6e0;
+      font-family: 'Great Vibes', cursive;
     }
 
-    /* floating hearts background */
-    .heart {
-      position: absolute;
-      bottom: -20px;
-      width: 20px;
-      height: 20px;
-      background: pink;
-      transform: rotate(45deg);
-      animation: floatUp 6s linear infinite;
-      opacity: 0.7;
-    }
-    .heart::before,
-    .heart::after {
-      content: '';
-      position: absolute;
-      width: 20px;
-      height: 20px;
-      background: pink;
-      border-radius: 50%;
-    }
-    .heart::before { top: -10px; left: 0; }
-    .heart::after { left: -10px; top: 0; }
-
-    @keyframes floatUp {
-      0% { transform: translateY(0) rotate(45deg) scale(1); opacity: 0.7; }
-      100% { transform: translateY(-700px) rotate(45deg) scale(1.5); opacity: 0; }
-    }
-
-    /* envelope */
     .envelope {
       position: relative;
       width: 320px;
       height: 200px;
       background: #ff4d88;
-      border-radius: 8px;
-      overflow: hidden;
-      box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+      border-radius: 6px;
+      overflow: hidden; /* hides letter until opened */
+      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
       perspective: 1000px;
     }
 
+    /* top flap */
     .flap {
       position: absolute;
       top: 0;
@@ -72,97 +42,53 @@
       z-index: 3;
     }
 
-    /* glowing heart seal */
-    .seal {
-      position: absolute;
-      top: 40px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 40px;
-      height: 40px;
-      background: #ff1a66;
-      transform: rotate(45deg) translateX(-50%);
-      box-shadow: 0 0 20px rgba(255,26,102,0.8);
-      z-index: 4;
-      border-radius: 5px;
-    }
-    .seal::before,
-    .seal::after {
-      content: '';
-      position: absolute;
-      width: 40px;
-      height: 40px;
-      background: #ff1a66;
-      border-radius: 50%;
-    }
-    .seal::before { top: -20px; left: 0; }
-    .seal::after { left: -20px; top: 0; }
-
     .envelope.open .flap {
       transform: rotateX(180deg);
-    }
-    .envelope.open .seal {
-      opacity: 0;
-      transition: opacity 0.5s ease;
+      z-index: 1;
     }
 
     /* letter */
     .letter {
       position: absolute;
-      top: 100%;
+      top: 100%; /* start fully hidden below */
       left: 0;
       width: 100%;
       height: 100%;
       background: white;
       padding: 20px;
       box-sizing: border-box;
-      transition: top 1s ease 1s;
+      transition: top 1s ease 0.8s; /* delay so it slides after flap */
       text-align: center;
       font-size: 18px;
       line-height: 1.6;
       z-index: 2;
-      border-radius: 6px;
-    }
-    .envelope.open .letter {
-      top: 0;
-      animation: glow 2s ease infinite alternate;
     }
 
-    @keyframes glow {
-      from { box-shadow: 0 0 10px #ff80bf; transform: scale(1); }
-      to { box-shadow: 0 0 30px #ff4d88; transform: scale(1.03); }
+    .envelope.open .letter {
+      top: 0; /* slides upward into view */
     }
 
     h1 {
-      font-family: 'Great Vibes', cursive;
-      font-size: 40px;
+      font-size: 34px;
       text-align: center;
-      color: #d6004d;
-      text-shadow: 2px 2px 6px rgba(255,0,102,0.4);
-      margin-bottom: 30px;
+      color: white;
+      text-shadow: 2px 2px 6px rgba(0,0,0,0.3);
+      margin-bottom: 20px;
     }
   </style>
 </head>
 <body>
-  <!-- floating hearts -->
-  <div class="heart" style="left:20%; animation-delay:0s;"></div>
-  <div class="heart" style="left:50%; animation-delay:2s;"></div>
-  <div class="heart" style="left:70%; animation-delay:4s;"></div>
-  <div class="heart" style="left:30%; animation-delay:1s;"></div>
-  <div class="heart" style="left:80%; animation-delay:3s;"></div>
-
-  <!-- title + envelope centered -->
-  <h1>💌 Happy Anniversary, Beng! 💖</h1>
-  <div class="envelope" id="envelope">
-    <div class="flap"></div>
-    <div class="seal"></div>
-    <div class="letter">
-      <p>
-        Every heartbeat of mine whispers your name. 💕<br><br>
-        You are my dream, my joy, my forever.<br>
-        Thank you for loving me endlessly.<br><br>
-        Happy Anniversary, my love! 💖
-      </p>
+  <div>
+    <h1>💌 Happy Anniversary, Beng! 💖</h1>
+    <div class="envelope" id="envelope">
+      <div class="flap"></div>
+      <div class="letter">
+        <p>
+          Every moment with you feels like magic.  
+          You are my best friend, my safe place, my forever.  
+          Here’s to endless laughter, love, and memories together. 💖
+        </p>
+      </div>
     </div>
   </div>
 
@@ -170,9 +96,10 @@
     const envelope = document.getElementById("envelope");
     setTimeout(() => {
       envelope.classList.add("open");
-    }, 2000);
+    }, 1500);
   </script>
 </body>
 </html>
+                                                 
 
     
